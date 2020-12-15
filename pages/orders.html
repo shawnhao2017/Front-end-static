@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset = 'utf-8'> 
+        <title>Sneakers Management Homepage</title>
+        <link rel="stylesheet"  href="style.css">
+    </head>
+    <body >
+        <div class='nav-bar'>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/orders">My orders</a></li>
+                <li style="float: right;"><a href="/pb">Personal Background</a></li>
+                <li style="float: right;"><a href="/logout">Logout</a></li>
+            </ul>
+        </div>
+        <div class='inAndOut' onchange="loadTable()">
+            <table id="table1"> 
+                <tr>
+                    <th>编号</th>
+                    <th>货号</th>
+                    <th>名字</th>
+                    <th>尺码</th>
+                    <th>时间</th>
+                    <th>数量</th>
+                    <th>进货价</th>
+                    <th>出货价</th>
+                    <th>利润</th>
+                    <th>  
+                        <button class='control' onclick="addRow()">添加</button>  
+                    </th>
+                </tr>
+
+            </table>
+        </div>
+        <div id="editTable">
+            <form action="" id ="newData">  
+                <input type="text" name="货号" placeholder="货号">
+                <input type="text" name="名字" placeholder="名字">
+                <input type="text" name="尺码" placeholder="尺码">
+                <input type="date" name="时间" placeholder="时间">
+                <input type="text" name="数量" placeholder="数量">
+                <input type="text" name="进货价" placeholder="进货价">
+                <input type="text" name="出货价" placeholder="出货价">
+                <input type="text" name="利润" placeholder="利润">              
+            </form>
+            <button class="control" onclick="myFunction()" style="margin-top: 5px; height: 20px;">提交</button>
+        </div>
+        <div class="bottom-container">
+            <span id="sp1"> 大熊脑袋的球鞋之家</span>
+            <span id="sp2"> Copyright 2020   All rights reserved. </span>
+        </div>
+    </body>
+    <style>
+        .nav-bar{
+            list-style-type:none ;
+            margin:0;
+            background-color: lightgrey;
+            width:100%;
+            border-top: 2px solid grey;
+            height:50px;
+        }
+        li{
+            display: inline-block;
+        }
+    
+        .inAndOut{
+            width:90%;
+            margin:25px 0 5px 0;
+        }
+        .nav-bar a{
+            display:inline-block;
+            line-height: 25px;
+            padding:0 20px;
+            color:darkgray;
+            text-decoration: none;
+        }
+        .nav-bar a:hover{
+            display:inline-block;
+            line-height: 30px;
+            padding:0 20px;
+            color:white;
+            text-decoration: none;
+            
+        }
+        #table1{
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width:80%;
+        }
+        #table1 td, #table1 th {
+            border: 1px solid #ddd;
+            padding:5px;
+        } 
+        #table1 tr{
+            width:fit-content;
+            height:30px;
+            text-align: center;
+
+        }
+
+        #table1 tr:nth-child(even){
+            border: 1px solid #f2f2f2;
+            width:fit-content;
+            height:30px;
+            text-align: center;
+            padding: 5px;
+            margin:2px;
+            background-color: lightgray;
+        }
+        .control{
+            height:30px;
+            width:80px;
+            border-radius: 5px;
+            border: 1px solid lightskyblue;
+            background-color: lightskyblue;
+            color:white;
+            margin:0 2px;
+            display: inline-block;
+        }
+        .control:hover{
+            height:30px;
+            width:80px;
+            border-radius: 5px;
+            border: 1px solid lightgray;
+            background-color: white;
+            color: lightskyblue;
+            margin:0 2px;
+            display:inline-block;
+        
+        }
+        #editTable{
+            display:none;
+            width:50%;
+            position:fixed;
+            top:200px;
+            right:25%;
+            background-color: lightgray;
+            padding:5px;
+            border:1px solid darkgray;
+            border-radius: 5px;
+        };
+
+        #newData input{
+             width:100px;
+             display: inline-block;
+        }
+        .newInput {
+            width:80px;
+            display:inline-block;
+        }
+        .bottom-container {
+            background-color: lightgrey;
+            width:100%;
+            border-top: 2px solid grey;
+            height:50px;
+            position:fixed;
+            bottom: 2px;
+        }
+        .bottom-container span {
+            color: #717171;
+            line-height: 48px;
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+        #sp1{
+            float: left;
+        }
+        #sp2 {
+            float: right;
+        }
+    </style>
+    
+    <script language="JavaScript">
+        function addRow(){
+            var ntb = document.getElementById('editTable');
+            ntb.style.display = "block";
+        }
+        
+        function myFunction(){
+            let colNum = 9;
+            let newTr = document.getElementById('newData');
+            let newIn = newTr.getElementsByTagName('input'); 
+            
+            let j =1 ;
+            let t = document.getElementById('table1');
+            let l = t.rows.length;
+            let trObj = document.createElement("tr");
+            let tdObj = document.createElement("td");
+
+            let newEditBtn = document.createElement("button");
+            let newDeleteBtn = document.createElement("button");
+            let newLastTd = document.createElement('td');
+            newEditBtn.setAttribute("class","control");
+            newEditBtn.setAttribute("onclick","editOrder(this)");
+            newEditBtn.innerHTML="编辑";
+            newDeleteBtn.innerHTML="删除";
+            newDeleteBtn.setAttribute("class","control");
+            newDeleteBtn.setAttribute("onclick","deleteOrder(this)");
+         
+            newLastTd.appendChild(newDeleteBtn);
+            newLastTd.appendChild(newEditBtn);
+            tdObj.innerHTML = l;
+            trObj.appendChild(tdObj);
+            t.appendChild(trObj);
+            for(let i =0; i < colNum-1; i++){
+
+                let newtdObj = document.createElement('td');
+                newtdObj.innerHTML = newIn[i].value;
+                //alert(newIn[i].value);
+                trObj.appendChild(newtdObj);
+            }
+            
+           
+            trObj.appendChild(newLastTd);
+            var ntb = document.getElementById('editTable');
+            ntb.style.display = "none";
+        }
+        function editOrder(obj){
+            let editedRow = obj.parentNode.parentNode;
+            let tds = editedRow.getElementsByTagName('td');
+            for(let i =1; i < tds.length-1; i++){
+                let tempInput = document.createElement("input");
+                tempInput.setAttribute("class","newInput");
+                let tempPlaceHolder = tds[i].innerHTML;
+                tempInput.setAttribute("value",tempPlaceHolder);
+                tds[i].innerHTML=" ";
+                tds[i].appendChild(tempInput);
+            }
+            let tempBtn = tds[tds.length-1].getElementsByTagName("button");
+            tempBtn=tempBtn[1];
+            tempBtn.innerHTML="确定";
+            tempBtn.setAttribute("onclick","changeContent(this)");
+            tempBtn.setAttribute("type","submit");
+        }
+        function changeContent(obj) {
+            let editedRow = obj.parentNode.parentNode;
+            let tds = editedRow.getElementsByTagName('td');
+            for(let i = 1; i < tds.length-1;i++){
+                let tempValue= tds[i].children[0].value;
+                tds[i].innerHTML=tempValue;                
+            } 
+            let tempBtn = tds[tds.length-1].getElementsByTagName("button");
+            tempBtn=tempBtn[1];
+            tempBtn.innerHTML="编辑";
+            tempBtn.setAttribute("onclick","editOrder(this)");
+        }
+        function deleteOrder(obj){
+            let editedRow = obj.parentNode.parentNode;
+            editedRow.parentNode.removeChild(editedRow);
+        };
+    </script>
+    
+</html>

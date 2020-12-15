@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset = 'utf-8'> 
+        <title>Sneakers Management Homepage</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class='nav-bar'>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/orders">My orders</a></li>
+                <li style="float: right;"><a href="/pb">Personal Background</a></li>
+                <li style="float: right;"><a href="/logout">Logout</a></li>
+            </ul>
+        </div>
+        <div class="bottom-container">
+            <span id="sp1"> 大熊脑袋的球鞋之家</span>
+            <span id="sp2"> Copyright 2020   All rights reserved. </span>
+        </div>
+    </body>
+    <style>
+        .nav-bar{
+            list-style-type:none ;
+            margin:0;
+            background-color: lightgrey;
+            width:100%;
+            border-top: 2px solid grey;
+            height:50px;
+        }
+        li{
+            display: inline-block;
+        }
+
+        .inAndOut{
+            width:1000px;
+            height:800px;
+            margin:5px auto;
+        }
+        .nav-bar a{
+            display:inline-block;
+            line-height: 30px;
+            padding:0 20px;
+            color:darkgray;
+            text-decoration: none;
+        }
+        .bottom-container {
+            background-color: lightgrey;
+            width:100%;
+            border-top: 2px solid grey;
+            height:50px;
+            position:fixed;
+            bottom: 2px;
+        }
+        .bottom-container span {
+                color: #717171;
+                line-height: 48px;
+                padding-left: 30px;
+                padding-right: 30px;
+        }
+        #sp1{
+            float: left;
+        }
+        #sp2 {
+            float: right;
+        }
+    </style>
+</html>

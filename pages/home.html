@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Sneakers Management Homepage</title>
+        <link rel="stylesheet" href="../css/style.css">
+    </head>
+    <body onload="drawPie()">
+        <div class='nav-bar'>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/orders">My orders</a></li>
+                <li id="pc" style="float: right;"><a href=""  onmouseover="showPc()" onmouseout="hidePc()">Personal Info</a></li> 
+                <li style="float: right;"><a href="/logout">Logout</a></li>
+            </ul>
+        </div>
+        <div class="top-container">
+            <div class = "person" id='person'>
+                <ul>
+                    <li><a href="">Info</a></li>
+                    <li><a href="">Settings</a></li>
+                </ul>
+            </div>
+            <div class='sneakersShow-container'>
+                <div class="slidesPic fade">
+                    <img src="../src/IMG_1381.JPG" alt="">
+                </div>
+                <div class="slidesPic fade">
+                    <img src="../src/IMG_1382.JPG" alt="">
+                </div>
+                <div class="slidesPic fade">
+                    <img src="../src/IMG_1383.JPG" alt="">
+                </div>
+                <div class="slidesPic fade">
+                    <img src="../src/IMG_1384.JPG" alt="">
+                </div>
+                <div class="slidesPic fade">
+                    <img src="../src/IMG_1385.JPG" alt="">
+                </div>
+                <div class="prevPic">
+                    <button onclick="prevPic()">《</button>
+                </div>
+                <div class="nextPic">
+                    <button onclick = "nextPic()">》</button>
+                </div>
+                <div style="text-align: center;">
+                    <span class="dots" onclick="currentSlide(1)"></span>
+                    <span class="dots" onclick="currentSlide(2)"></span>
+                    <span class="dots" onclick="currentSlide(3)"></span>
+                    <span class="dots" onclick="currentSlide(4)"></span>
+                    <span class="dots" onclick="currentSlide(5)"></span>
+                </div>
+            </div>
+            <div class = "statistics"> 
+                <div class="pieChart-Container">
+                    <p>上月利润</p>
+                    <canvas id="canvas1" width="300" height="350"></canvas>
+                </div>
+            </div>
+
+        </div>
+        <div class="bottom-container">
+            <span id="sp1"> 大熊脑袋的球鞋之家</span>
+            <span id="sp2"> Copyright 2020   All rights reserved. </span>
+        </div>
+    
+    </body>
+    <style>
+        .top-container{
+            display: flex;
+            display: -webkit-flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            width: 100%;
+            height:70%;
+        }
+        .nav-bar{
+            list-style-type:none ;
+            margin:0;
+            background-color: lightgrey;
+            width:100%;
+            border-top: 2px solid grey;
+            height:50px;
+        }
+        li{
+            display: inline-block;
+        }
+        .person {
+            position:absolute;
+            right:10px;
+            display: none;
+
+        }
+        .person ul{
+            list-style-type: none;
+            background: rgba(220, 220, 220);
+            border:1px solid #717171;
+            width:150px;
+            border-radius: 5px;
+        }
+        .person ul li {
+            border:none;
+            color: #717171;
+            display: inline-block;
+            line-height: 40px;
+            width:150px;    
+        }
+        .person ul li a {
+            text-decoration: none;
+        }
+
+    
+        .inAndOut{
+            width:1000px;
+            height:800px;
+            margin:5px auto;
+        }
+        .nav-bar a{
+            display:inline-block;
+            line-height: 25px;
+            padding:0 20px;
+            color:#717171;
+            text-decoration: none;
+        }
+        .nav-bar a:hover{
+            display:inline-block;
+            line-height: 30px;
+            padding:0 20px;
+            color:white;
+            text-decoration: none;
+            
+        }
+        .slidesPic{
+            display:none;
+        }
+        .sneakersShow-container{
+            position: relative;
+            width:30%;
+            height:35%;
+            margin: 20px 0 20px 20px;
+            flex-shrink: 1;
+            text-align: center;
+            padding: 2px;
+        }
+        .prevPic, .nextPic {
+            cursor: pointer;
+            width: 30px;
+            height:30px;
+            position:absolute;
+            top:50%;
+            opacity: 0.6;
+            margin-left: 2px;
+            border:none;
+        }
+        .nextPic{
+            right:0;
+            margin-right:5px;
+        }
+
+    
+
+        img{
+            max-width: 100%;
+            max-height: 100%;
+        }
+        .dots {
+            margin:0 2px;
+            cursor: pointer;
+            height: 10px;
+            width:10px;
+            border-radius: 50%;
+            background-color: rgb(156, 156, 156);
+            display: inline-block;
+            transition: background-color 0.6s ease;
+        }
+        .active, .dots:hover {
+            background-color: #717171;
+        }
+        .fade {
+            -webkit-animation-name: fade;
+            -webkit-animation-duration: 2s;
+            animation-name: fade;
+            animation-duration: 2;
+        }
+        @-webkit-keyframes fade {
+            from {opacity: .4} 
+            to {opacity: 1}
+        }
+        @keyframes fade {
+            from {opacity: .4} 
+            to {opacity: 1}
+        }
+        .statistics{
+            width:60%;
+            margin: 20px 20px 50px 40px ;
+            border:2px solid #bbb;
+            border-radius: 5px;
+            flex-shrink: 2;
+        }
+        .pieChart-Container {
+            width:30%;
+            height:35%;
+            text-align: center;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            color: #717171
+        }
+        .bottom-container {
+            background-color: lightgrey;
+            width:100%;
+            border-top: 2px solid grey;
+            height:50px;
+            position:fixed;
+            bottom: 2px;
+        }
+        .bottom-container span {
+            color: #717171;
+            line-height: 48px;
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+        #sp1{
+            float: left;
+        }
+        #sp2 {
+            float: right;
+        }
+        
+    </style>
+    <script>  
+        var slideIndex = 1;
+        var s; 
+        showSlides(slideIndex);
+       
+        
+        function currentSlide(n) {
+            if(n<1){
+                slideIndex=5;
+            } else if (n>5){
+                slideIndex = 1;
+            } else {
+                slideIndex = n;
+            }
+            
+            s=window.clearInterval(s);
+            showSlides(slideIndex);
+        }
+        
+        function showSlides(n) {
+            let i;
+            var slides = document.getElementsByClassName("slidesPic");
+            var dots = document.getElementsByClassName("dots");       
+            for(let i =0; i < dots.length; i++){
+                if(i!= n-1){
+                    slides[i].style.display = "none";
+                    dots[i].style.background="rgb(156, 156, 156)";
+                }
+            }
+            slideIndex++;
+            slides[n-1].style.display="block";
+            dots[n-1].style.background="#717171";
+           
+            s = setInterval(function(){
+                currentSlide(slideIndex);
+            },2000);
+        }
+        function prevPic(){
+            currentSlide(slideIndex-1);           
+        }
+        function nextPic(){
+            currentSlide(slideIndex+1);
+        }
+        function drawPie(){
+            let p = document.getElementById("canvas1");
+            let ctx = p.getContext('2d');
+            ctx.beginPath();
+            let cir=ctx.arc(150,150,120,0,(3/2)*Math.PI);
+            ctx.lineTo(150,150);
+            ctx.closePath();
+            ctx.fillStyle='rgba(70,180,130)';
+            ctx.fill();
+            
+            
+          
+            ctx.beginPath();
+            ctx.arc(150,150,120,0,(3/2)*Math.PI,true);
+            ctx.lineTo(150,150);
+            ctx.closePath();
+            ctx.fillStyle='rgba(220,220,220)';
+            ctx.fill();
+            
+            ctx.fillStyle="#717171";
+            ctx.font="Georgia 20";
+            ctx.fillText("75%",120,180);
+            ctx.fillText("25%",180,120);
+            
+            ctx.fillStyle="rgba(70,180,130)";
+            ctx.fillRect(130,290,20,20);
+            ctx.fillStyle="rgba(220,220,220)";
+            ctx.fillRect(130,330,20,20);
+
+            ctx.fillStyle="#717171";
+            ctx.fillText("成本", 160,300);
+            ctx.fillText("净利润",160,340);
+        }
+        function showPc(){
+            let p = document.getElementById('person');
+            p.style.display="block";
+        }
+        function hidePc(){
+            let p=document.getElementById('person');
+            p.style.display="none";
+        }
+
+    </script>
+    
+</html>
